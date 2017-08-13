@@ -20,7 +20,7 @@ set $right o
 # Your preferred terminal emulator
 set $term urxvt
 # Your preferred application launcher
-set $menu dmenu_run
+set $menu dmenu_run -fn 'Liberation Mono-11'
 # My preffered screen lock
 set $lock swaylock -i $wallpaper -s fill
 # My preffered screen grabber
