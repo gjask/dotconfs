@@ -27,6 +27,8 @@ set $lock swaylock -i $wallpaper -s fill
 set $grab swaygrab
 # My preffered browser
 set $browser firefox
+# My preffered file manager
+set $manager urxvt -e ranger
 
 ### Run after start
 #
@@ -79,6 +81,9 @@ output * bg $wallpaper fill
 
     # start a browser
     bindsym $mod+o exec $browser
+
+    # start a file manager
+    bindsym $mod+g exec $manager
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -214,17 +219,19 @@ bindsym $mod+r mode "resize"
 #
 # Exiting
 #
-mode "Exit (L)ogout, (R)eboot, (P)oweroff" {
-    bindsym $mod+r exec systemctl reboot
-    bindsym $mod+l exit
-    bindsym $mod+p exec systemctl poweroff
+set $exit_mode "Exit (L)ogout, (R)eboot, (P)oweroff, (S)uspend"
+mode $exit_mode {
+    bindsym r exec systemctl reboot
+    bindsym l exit
+    bindsym p exec systemctl poweroff
+    bindsym s exec systemctl suspend
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 
-bindsym $mod+Shift+e mode "Exit (L)ogout, (R)eboot, (P)oweroff"
+bindsym $mod+Shift+e mode $exit_mode
 
 ### Appearance settings
 #
