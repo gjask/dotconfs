@@ -13,12 +13,13 @@ set $xrc ~/.config/sway/Xresources
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
 # Home row direction keys, like vim
-set $left h
-set $down j
-set $up k
-set $right o
+#set $left h
+#set $down j
+#set $up k
+#set $right l
 # Your preferred terminal emulator
-set $term urxvt
+#set $term urxvt
+set $term termite
 # Your preferred application launcher
 set $menu dmenu_run -fn 'Liberation Mono-11'
 # My preffered screen lock
@@ -80,10 +81,15 @@ output * bg $wallpaper fill
     bindsym $mod+p exec $grab
 
     # start a browser
-    bindsym $mod+o exec $browser
+    bindsym $mod+u exec $browser
 
     # start a file manager
     bindsym $mod+g exec $manager
+
+    # volume control
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+    bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -94,23 +100,14 @@ output * bg $wallpaper fill
 
     # reload the configuration file
     bindsym $mod+Shift+c reload
-
-    # exit sway (logs you out of your wayland session)
-    #bindsym $mod+Shift+e exit
-
-    # shutdown system
-    #bindsym $mod+Shift+h exec sudo shutdown -h now
-
-    # reboot system
-    #bindsym $mod+Shift+r exec sudo shutdown -r now
 #
 # Moving around:
 #
     # Move your focus around
-    bindsym $mod+$left focus left
-    bindsym $mod+$down focus down
-    bindsym $mod+$up focus up
-    bindsym $mod+$right focus right
+    #bindsym $mod+$left focus left
+    #bindsym $mod+$down focus down
+    #bindsym $mod+$up focus up
+    #bindsym $mod+$right focus right
     # or use $mod+[up|down|left|right]
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
@@ -118,10 +115,10 @@ output * bg $wallpaper fill
     bindsym $mod+Right focus right
 
     # _move_ the focused window with the same, but add Shift
-    bindsym $mod+Shift+$left move left
-    bindsym $mod+Shift+$down move down
-    bindsym $mod+Shift+$up move up
-    bindsym $mod+Shift+$right move right
+    #bindsym $mod+Shift+$left move left
+    #bindsym $mod+Shift+$down move down
+    #bindsym $mod+Shift+$up move up
+    #bindsym $mod+Shift+$right move right
     # ditto, with arrow keys
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
@@ -199,10 +196,10 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10 px or 10 ppt
-    bindsym $down resize grow height 10 px or 10 ppt
-    bindsym $up resize shrink height 10 px or 10 ppt
-    bindsym $right resize grow width 10 px or 10 ppt
+    #bindsym $left resize shrink width 10 px or 10 ppt
+    #bindsym $down resize grow height 10 px or 10 ppt
+    #bindsym $up resize shrink height 10 px or 10 ppt
+    #bindsym $right resize grow width 10 px or 10 ppt
 
     # ditto, with arrow keys
     bindsym Left resize shrink width 10 px or 10 ppt
@@ -219,18 +216,17 @@ bindsym $mod+r mode "resize"
 #
 # Exiting
 #
-set $exit_mode "Exit (L)ogout, (R)eboot, (P)oweroff, (S)uspend"
+set $exit_mode "Exit (L)ogout, (R)eboot, (P)oweroff, (S)uspend" 
 mode $exit_mode {
     bindsym r exec systemctl reboot
     bindsym l exit
     bindsym p exec systemctl poweroff
-    bindsym s exec systemctl suspend
+    bindsym s exec systemctl suspend; mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 bindsym $mod+Shift+e mode $exit_mode
 
 ### Appearance settings
@@ -252,7 +248,6 @@ bar {
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
     status_command i3status --config ~/.config/sway/i3status.conf
-    #status_command i3blocks -c ~/.config/sway/i3blocks.conf
 } 
 
 include /etc/sway/config.d/*
