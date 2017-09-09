@@ -21,7 +21,7 @@ set $mod Mod4
 #set $term urxvt
 set $term termite
 # Your preferred application launcher
-set $menu dmenu_run -fn 'Liberation Mono-11'
+set $menu dmenu_run -fn 'Liberation Mono-10'
 # My preffered screen lock
 set $lock swaylock -i $wallpaper -s fill
 # My preffered screen grabber
@@ -228,6 +228,23 @@ mode $exit_mode {
     bindsym Escape mode "default"
 }
 bindsym $mod+Shift+e mode $exit_mode
+
+#
+# WiFi
+#
+set $wifi "wls3"
+set $wifi_mode "WiFi (U)p, (D)own, (S)elect, (N)ew"
+mode $wifi_mode {
+    bindsym u exec sudo ip link set $wifi up
+    bindsym d exec sudo ip link set $wifi down
+    bindsym s exec ~/.config/sway/wifi_menu.sh $wifi -fn "Liberation Mono-10"; mode "default"
+    bindsym n exec $term -e 'sudo wifi-menu -o'; mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+w mode $wifi_mode
 
 ### Appearance settings
 #
